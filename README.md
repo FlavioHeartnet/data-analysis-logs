@@ -1,50 +1,112 @@
-# Welcome to your Expo app 👋
+# ObservaSync
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A unified observability mobile app for engineering managers and tech leads. Correlates system health data from Grafana with GitHub commits to answer "what changed?" in under 30 seconds.
 
-## Get started
+## Overview
 
-1. Install dependencies
+Engineering managers waste time context-switching between observability tools (Grafana, Datadog, CloudWatch) to get a unified view of system health. ObservaSync provides a feed-style timeline correlating alerts and anomalies with recent deploys — all in one mobile app.
 
-   ```bash
-   npm install
-   ```
+### Key Features
 
-2. Start the app
+- **Timeline Feed** — Alerts, anomalies, and usage changes in chronological order
+- **Auto-Correlation** — Links anomalies to commits within configurable time windows
+- **Metric Cards** — At-a-glance APM metrics (error rate, latency, throughput)
+- **Multi-Platform** — iOS, Android, and Web via Expo
 
-   ```bash
-   npx expo start
-   ```
+## Tech Stack
 
-In the output, you'll find options to open the app in a
+| Layer | Technology |
+|-------|------------|
+| Framework | Expo SDK 54 + React Native 0.81 |
+| UI | React 19 with new architecture |
+| Language | TypeScript 5.9 (strict mode) |
+| Routing | Expo Router 6 (file-based, typed routes) |
+| Navigation | React Navigation 7 (bottom tabs) |
+| State | TanStack React Query |
+| HTTP | Axios |
+| Charts | Victory Native |
+| Animations | Reanimated 4 |
+| Storage | Expo Secure Store |
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Quick Start
 
 ```bash
-npm run reset-project
+npm install          # Install dependencies
+npx expo start       # Start dev server (press i/a/w for iOS/Android/Web)
+npm run lint         # Run ESLint
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Project Structure
 
-## Learn more
+```
+app/                 # Screens and routing (file-based)
+├── (auth)/          # Authentication screens (login, register)
+├── (tabs)/          # Tab navigator (Feed, Settings)
+├── event/           # Event detail screens
+└── modal.tsx        # Modal screen
 
-To learn more about developing your project with Expo, look at the following resources:
+components/          # Reusable components
+├── ui/              # Low-level UI primitives
+├── timeline-feed.tsx
+├── metric-card.tsx
+├── correlation-list.tsx
+└── event-card.tsx
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+hooks/               # Custom hooks
+├── use-auth.ts
+├── use-events.ts
+├── use-metrics.ts
+└── use-sync-status.ts
 
-## Join the community
+services/            # API and data services
+├── api.ts
+├── auth.ts
+├── events.ts
+└── mock-data.ts
 
-Join our community of developers creating universal apps.
+constants/           # Theme colors, fonts
+docs/                # Design docs and workplan
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Conventions
+
+### Naming
+
+- **Files**: kebab-case (`themed-view.tsx`, `use-color-scheme.ts`)
+- **Components**: PascalCase exports (`ThemedView`, `HapticTab`)
+- **Hooks**: camelCase with `use` prefix (`useThemeColor`)
+
+### Imports
+
+Use the `@/` path alias for absolute imports:
+
+```tsx
+import { ThemedView } from '@/components/themed-view';
+import { useThemeColor } from '@/hooks/use-theme-color';
+import { Colors } from '@/constants/theme';
+```
+
+### Theme System
+
+Use themed components for automatic dark/light mode:
+
+```tsx
+import { ThemedView } from '@/components/themed-view';
+import { ThemedText } from '@/components/themed-text';
+
+// Direct color access
+const backgroundColor = useThemeColor({}, 'background');
+```
+
+### Platform-Specific Code
+
+Use `.ios.tsx` / `.android.tsx` / `.web.tsx` suffixes for platform variants.
+
+## Documentation
+
+- [Design Document](docs/DESIGN.md) — Problem, users, scope, and data model
+- [Workplan](docs/WORKPLAN.md) — Implementation phases and milestones
+
+## License
+
+Private
