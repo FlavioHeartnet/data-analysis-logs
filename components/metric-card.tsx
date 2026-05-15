@@ -68,14 +68,14 @@ export function MetricCard({
         <ThemedText style={[styles.value, { color: textColor }]}>
           {typeof value === 'number' ? value.toLocaleString() : value}
         </ThemedText>
-        {unit && (
+        {!!(unit) && (
           <ThemedText style={[styles.unit, { color: iconColor }]}>
             {unit}
           </ThemedText>
         )}
       </View>
 
-      {trend && trendValue && (
+      {trend && !!(trendValue) && (
         <View style={styles.trendRow}>
           <ThemedText style={[styles.trendIcon, { color: getTrendColor() }]}>
             {getTrendIcon()}
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   value: {
-    fontSize: 32,
+    fontSize: 24,
     fontWeight: '700',
     letterSpacing: -1,
   },

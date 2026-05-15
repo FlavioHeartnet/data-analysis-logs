@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
   },
   greeting: {
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: '700',
     marginBottom: 4,
   },
