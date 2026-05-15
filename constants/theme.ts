@@ -7,6 +7,7 @@ import { Platform } from 'react-native';
 
 const tintColorLight = '#0a7ea4';
 const tintColorDark = '#fff';
+const buttonColorPrimary = '#0a7ea4'; // Consistent button color for both themes
 
 export const Colors = {
   light: {
@@ -16,6 +17,8 @@ export const Colors = {
     icon: '#687076',
     tabIconDefault: '#687076',
     tabIconSelected: tintColorLight,
+    buttonPrimary: buttonColorPrimary,
+    buttonText: '#fff',
   },
   dark: {
     text: '#ECEDEE',
@@ -24,6 +27,8 @@ export const Colors = {
     icon: '#9BA1A6',
     tabIconDefault: '#9BA1A6',
     tabIconSelected: tintColorDark,
+    buttonPrimary: buttonColorPrimary,
+    buttonText: '#fff',
   },
 };
 
